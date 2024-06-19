@@ -1,0 +1,12 @@
+{
+    "name": "bledmarket/api",
+    "description": "The API project of BledMarket v4 (bledmarket.fr)",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Valentin Beauget",
+            "email": "valentin.beauget@gmail.com"
+        }
+    ],
+    "require": {}
+}
