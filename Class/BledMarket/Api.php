@@ -16,7 +16,7 @@
                 $errorMessage .= ": $customMessage";
             }
 
-            $this->clearResponse();
+            if($code !== 1) $this->clearResponse();
 
             $this->addToResponse("errorCode", $code);
             $this->addToResponse("errorMessage", $errorMessage);
@@ -26,6 +26,8 @@
 
         public function reply():void {
             if(empty($this->response)) $this->error(0);
+
+            if(!isset($this->response["errorCode"])) $this->error(1);
 
             die(json_encode($this->response));
         }

@@ -4,5 +4,8 @@ codes d'erreur :
     0 : réponse vide
     1 : tout va bien
     2 : erreur inconnue
-    3 : erreur PHP
-    4 : erreur de configuration
+    3 : erreur de configuration
+    4 : erreur PHP fatale
+    5 : erreur PHP avertissement
+    6 : erreur PHP notice
+    7 : erreur PHP inconnue

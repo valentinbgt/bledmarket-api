@@ -1,7 +1,10 @@
 {
     "0": "Empty response",
     "1": "OK",
-    "2": "Unknow error",
-    "3": "PHP error",
-    "4": "Configuration error"
+    "2": "Unknown error",
+    "3": "Configuration error",
+    "4": "Fatal PHP error",
+    "5": "Warning PHP error",
+    "6": "Notice PHP error",
+    "7": "Unknown PHP error"
 }
