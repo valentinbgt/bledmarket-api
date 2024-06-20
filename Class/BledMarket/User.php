@@ -70,4 +70,10 @@
             session_destroy();
         }
 
+        public function require():void{
+            if(is_nan($this->id)){
+                (new Api())->error(16);
+            }
+        }
+
     }

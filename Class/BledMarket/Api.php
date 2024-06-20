@@ -43,7 +43,7 @@
             die(json_encode($this->response));
         }
 
-        public function addToResponse(string $key, string $value):void {
+        public function addToResponse(string $key, mixed $value):void {
             $this->response[$key] = $value;
         }
 
@@ -78,6 +78,16 @@
 
         public function getParameters():array {
             return $GLOBALS["_$this->method"];
+        }
+
+        public function checkRepertory($repertory){
+            $validRepertorys = [
+                'public',
+                'private',
+                'drop'
+            ];
+
+            if(!in_array($repertory, $validRepertorys)) $this->error(17);
         }
 
         // [END] REQUEST PARAMETERS

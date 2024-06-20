@@ -17,3 +17,5 @@
 - 13 : identifiant introuvable
 - 14 : mot de passe incorrect
 - 15 : utilisateur introuvable
+- 16 : connexion nécessaire
+- 17 : répertoire demandé invalide

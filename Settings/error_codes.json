@@ -14,5 +14,7 @@
     "12": "Invalid parameter",
     "13": "Login not found",
     "14": "Incorrect password",
-    "15": "User not found"
+    "15": "User not found",
+    "16": "Login needed",
+    "17": "Invalid repertory asked"
 }

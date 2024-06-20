@@ -5,9 +5,9 @@
 
     extract($api->getParameters());
 
-    if($repertory == "public"){
+    $file = new File();
 
-    }
-    else if($repertory == "private"){
+    $fileList = $file->get($user, $repertory);
 
-    }
+    $api->addToResponse("fileList", $fileList);
+    $api->validRequest();

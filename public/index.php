@@ -17,6 +17,8 @@
     require_once(PROJECT_ROOT . 'Class/BledMarket/User.php');
     $user = new User();
 
+    require_once(PROJECT_ROOT . 'Class/BledMarket/File.php');
+
     require_once(PROJECT_ROOT . 'app/rooter.php');
 
 
