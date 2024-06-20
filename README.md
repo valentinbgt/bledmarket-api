@@ -9,3 +9,5 @@
 - 5 : erreur PHP avertissement
 - 6 : erreur PHP notice
 - 7 : erreur PHP inconnue
+- 8 : 403 accès refusé
+- 9 : 404 page introuvable

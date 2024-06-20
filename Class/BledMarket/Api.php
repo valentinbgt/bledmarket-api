@@ -29,6 +29,7 @@
 
             if(!isset($this->response["errorCode"])) $this->error(1);
 
+            header('Content-Type: application/json');
             die(json_encode($this->response));
         }
 
@@ -38,6 +39,11 @@
 
         public function clearResponse():void {
             $this->response = array();
+        }
+
+        public function debug():void {
+            header('Content-Type: text/html; charset=UTF-8');
+            die();
         }
 
     }

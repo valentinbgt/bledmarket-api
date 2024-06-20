@@ -6,5 +6,7 @@
     "4": "Fatal PHP error",
     "5": "Warning PHP error",
     "6": "Notice PHP error",
-    "7": "Unknown PHP error"
+    "7": "Unknown PHP error",
+    "8": "403, Forbidden",
+    "9": "404, Not Found"
 }
