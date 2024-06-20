@@ -10,6 +10,8 @@
             $errorCodes = file_get_contents(PROJECT_ROOT . 'Settings/error_codes.json');
             $errorCodes = json_decode($errorCodes);
 
+            if(!isset($errorCodes->$code)) $code = 2;
+
             $errorMessage = $errorCodes->$code;
 
             if(!empty($customMessage)) {

@@ -11,7 +11,7 @@
 
         if(file_exists($scriptPath)){
             
-            require($scriptPath);            
+            require($scriptPath);
 
         }else{
             $api->error(9, "La solution demandée est introuvable.");

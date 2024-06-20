@@ -8,5 +8,6 @@
     "6": "Notice PHP error",
     "7": "Unknown PHP error",
     "8": "403, Forbidden",
-    "9": "404, Not Found"
+    "9": "404, Not Found",
+    "10": "MYSQL connection error"
 }

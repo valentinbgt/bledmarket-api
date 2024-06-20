@@ -11,3 +11,4 @@
 - 7 : erreur PHP inconnue
 - 8 : 403 accès refusé
 - 9 : 404 page introuvable
+- 10 : Erreur de connexion à la base de données MYSQL
