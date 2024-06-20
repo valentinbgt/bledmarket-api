@@ -6,14 +6,20 @@
         ){
         }
 
-        public function error(int $code = 2):void {
+        public function error(int $code = 2, string $customMessage = ""):void {
             $errorCodes = file_get_contents(PROJECT_ROOT . 'Settings/error_codes.json');
             $errorCodes = json_decode($errorCodes);
+
+            $errorMessage = $errorCodes->$code;
+
+            if(!empty($customMessage)) {
+                $errorMessage .= ": $customMessage";
+            }
 
             $this->clearResponse();
 
             $this->addToResponse("errorCode", $code);
-            $this->addToResponse("errorMessage", $errorCodes->$code);
+            $this->addToResponse("errorMessage", $errorMessage);
 
             $this->reply();
         }
