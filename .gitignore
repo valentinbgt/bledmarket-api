@@ -1,2 +1,2 @@
 #Fichiers de configuration
-*.conf.php
+/Conf/conf.inc.php
