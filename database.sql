@@ -27,6 +27,7 @@ user_name TINYTEXT,
 user_display_name TINYTEXT,
 user_email TEXT,
 user_pwd TEXT,
+user_about TEXT,
 user_google_link BIGINT,
 PRIMARY KEY (user_id)) ENGINE=InnoDB;
 
