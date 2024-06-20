@@ -22,7 +22,7 @@ PRIMARY KEY (file_id)) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS users ;
 CREATE TABLE users (user_id BIGINT AUTO_INCREMENT NOT NULL,
-user_type_users TINYTEXT,
+user_type TINYTEXT,
 user_name TINYTEXT,
 user_display_name TINYTEXT,
 user_email TEXT,

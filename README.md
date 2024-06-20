@@ -12,3 +12,8 @@
 - 8 : 403 accès refusé
 - 9 : 404 page introuvable
 - 10 : Erreur de connexion à la base de données MYSQL
+- 11 : mauvaise méthode de requête
+- 12 : paramètre invalide
+- 13 : identifiant introuvable
+- 14 : mot de passe incorrect
+- 15 : utilisateur introuvable

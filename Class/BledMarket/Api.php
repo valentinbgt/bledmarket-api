@@ -1,11 +1,19 @@
 <?php
     Class Api{
 
+        public const POST = "POST";
+        public const GET = "GET";
+
+        private array $response = array();
+        private string $method;
+
         public function __construct(
-            private array $response = array()
         ){
+            $this->method = $_SERVER['REQUEST_METHOD'];
         }
 
+
+        // RESPONSE & ERROR HANDLERS
         public function error(int $code = 2, string $customMessage = ""):void {
             $errorCodes = file_get_contents(PROJECT_ROOT . 'Settings/error_codes.json');
             $errorCodes = json_decode($errorCodes);
@@ -43,9 +51,35 @@
             $this->response = array();
         }
 
+        public function validRequest():void {
+            $this->error(1);
+        }
+
         public function debug():void {
             header('Content-Type: text/html; charset=UTF-8');
             die();
         }
+        // [END] RESPONSE & ERROR HANDLERS
+
+
+        // REQUEST PARAMETERS
+
+        public function requieredMethod(string $method):void {
+            if($this->method != $method) $this->error(11);
+        }
+
+        public function parameterCheck(string $parameter):void {
+            $paramContainer = $GLOBALS["_$this->method"];
+
+            if(empty($paramContainer[$parameter])) {
+                $this->error(12, "'$parameter'");
+            }
+        }
+
+        public function getParameters():array {
+            return $GLOBALS["_$this->method"];
+        }
+
+        // [END] REQUEST PARAMETERS
 
     }

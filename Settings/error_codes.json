@@ -9,5 +9,10 @@
     "7": "Unknown PHP error",
     "8": "403, Forbidden",
     "9": "404, Not Found",
-    "10": "MYSQL connection error"
+    "10": "MYSQL connection error",
+    "11": "Wrong method",
+    "12": "Invalid parameter",
+    "13": "Login not found",
+    "14": "Incorrect password",
+    "15": "User not found"
 }

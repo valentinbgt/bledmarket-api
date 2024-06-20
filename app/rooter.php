@@ -1,5 +1,7 @@
 <?php
-    $route = explode('/', $_SERVER['REQUEST_URI']);
+    $path = explode('?', $_SERVER['REQUEST_URI'])[0];
+
+    $route = explode('/', $path);
 
     if(!empty($route[1])){
         $page = $route[1];

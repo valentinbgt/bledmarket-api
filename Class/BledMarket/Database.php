@@ -18,4 +18,20 @@
             }
         }
 
+        public function prepare(string $sql):object{
+            return $this->database->prepare($sql);
+        }
+
+        public function fetch(string $table, string $param, mixed $value):mixed {
+            $sql = "SELECT * FROM `$table` WHERE $param=:value";
+            $query = $this->prepare($sql);
+
+            $query->bindParam(':value', $value);
+
+            $query->execute();
+            $res = $query->fetch();
+
+            return $res;
+        }
+
     }
