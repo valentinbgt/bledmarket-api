@@ -19,3 +19,7 @@
 - 15 : utilisateur introuvable
 - 16 : connexion nécessaire
 - 17 : répertoire demandé invalide
+- 18 : fichier non spécifié lors de l'envoi
+- 19 : erreur lors de l'envoi du fichier
+- 20 : fichier introuvable dans les fichiers temporaires du serveur
+- 21 : droits inssuffisants

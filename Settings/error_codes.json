@@ -16,5 +16,9 @@
     "14": "Incorrect password",
     "15": "User not found",
     "16": "Login needed",
-    "17": "Invalid repertory asked"
+    "17": "Invalid repertory asked",
+    "18": "File not specified",
+    "19": "File upload error",
+    "20": "File unreachable",
+    "21": "Permission denied"
 }

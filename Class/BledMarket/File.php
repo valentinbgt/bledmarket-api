@@ -34,4 +34,33 @@
             return $fileList;
         }
 
+
+        public function upload(string $tmp_name, string $file_name, string $file_type, int $file_size, string $path, string $repertory){
+
+            //generate rand public key
+            $allPubliKeys = $this->db->selectAllRowsOfColumn('files', 'file_public_id');
+            if(!$allPubliKeys) $allPubliKeys = array();
+            $publicKey = Functions::randKey(64, $allPubliKeys);
+
+            //generate rand db id
+            $allDatabaseIds = $this->db->selectAllRowsOfColumn('files', 'file_db_id');
+            if(!$allDatabaseIds) $allDatabaseIds = array();
+            $databaseId = Functions::randKey(64, $allDatabaseIds);
+
+
+
+            //file date
+            $file_date = time();
+
+            echo "tmp_name: $tmp_name<br>\n";
+            echo "publicKey: $publicKey<br>\n";
+            echo "databaseId: $databaseId<br>\n";
+            echo "file_name: $file_name<br>\n";
+            echo "file_type: $file_type<br>\n";
+            echo "file_size: $file_size<br>\n";
+            echo "file_date: $file_date<br>\n";
+            echo "path: $path<br>\n";
+            echo "repertory: $repertory<br>\n";
+        }
+
     }

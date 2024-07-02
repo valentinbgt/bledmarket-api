@@ -71,9 +71,13 @@
         }
 
         public function require():void{
-            if(is_nan($this->id)){
+            if(@is_nan($this->id) || is_null($this->id)){
                 (new Api())->error(16);
             }
+        }
+
+        public function checkPublicUploadAllowed():void{
+            if($this->type !== "admin") (new Api())->error(21, "Vous n'avez pas les droits nécéssaires pour modifier les fichiers publics");
         }
 
     }

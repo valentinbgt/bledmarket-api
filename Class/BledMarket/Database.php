@@ -34,4 +34,14 @@
             return $res;
         }
 
+        public function selectAllRowsOfColumn(string $table, string $colomn):mixed {
+            $sql = "SELECT `$colomn` FROM `$table` WHERE 1";
+            $query = $this->prepare($sql);
+
+            $query->execute();
+            $res = $query->fetch();
+
+            return $res;
+        }
+
     }
