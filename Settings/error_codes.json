@@ -20,5 +20,6 @@
     "18": "File not specified",
     "19": "File upload error",
     "20": "File unreachable",
-    "21": "Permission denied"
+    "21": "Permission denied",
+    "22": "Failed to move file into database"
 }

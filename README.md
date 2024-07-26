@@ -23,3 +23,4 @@
 - 19 : erreur lors de l'envoi du fichier
 - 20 : fichier introuvable dans les fichiers temporaires du serveur
 - 21 : droits inssuffisants
+- 22 : erreur de la fonction ou équivalente move_uploaded_file();

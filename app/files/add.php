@@ -26,7 +26,7 @@
 
     $file = new File();
 
-    $file->upload($tmp_name, $file_name, $file_type, $file_size, $path, $repertory);
+    $file->upload($tmp_name, $file_name, $file_type, $file_size, $path, $repertory, $user);
     die();
 
     // $api->addToResponse("fileList", $fileList);
