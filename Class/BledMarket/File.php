@@ -112,13 +112,9 @@
 
         public function delete(string $file_public_id){
             //delete permanently without trash
-            $db = new Database();
+            global $db;
 
-            $sql = "SELECT `file_db_id` FROM `files` WHERE `file_public_id`=:file_public_id";
-            $query = $db->prepare($sql);
-            $query->bindValue(':file_public_id', $file_public_id);
-            $query->execute();
-            $result = $query->fetch();
+            $result = $db->fetch('files', 'file_public_id', $file_public_id);
             $databaseId = $result["file_db_id"];
 
             $file_path = DB_FILES_PATH . '/' . $databaseId;
@@ -130,5 +126,11 @@
             $query = $db->prepare($sql);
             $query->bindValue(':file_public_id', $file_public_id);
             $query->execute();
+        }
+
+        public function move(string $file_public_id, string $file_path){
+            global $db;
+
+            var_dump($db);
         }
     }

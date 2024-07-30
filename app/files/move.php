@@ -1,2 +1,4 @@
 <?php
-    echo exec('pwd');
+    $file = new File();
+
+    $file->move('testfileid', 'testfilepath');

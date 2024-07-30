@@ -21,11 +21,13 @@
         }
 
         private function connect(){
+            global $api;
+
             $user = $this->db->fetch('users', 'user_id', $this->id);
             
             if(!$user) {
                 $this->logout();
-                (new Api())->error(15, "Utilisateur introuvable, vous avez été déconnecté.");
+                $api->error(15, "Utilisateur introuvable, vous avez été déconnecté.");
             }
 
             extract($user);
@@ -38,6 +40,8 @@
         }
 
         public function login(string $login, string $password):void {
+            global $api;
+
             $sql = "SELECT * FROM `users` WHERE `user_name`=:login OR `user_email`=:login";
             $query = $this->db->prepare($sql);
 
@@ -53,15 +57,15 @@
                 if(password_verify($password, $user_pwd)){
 
                     $_SESSION["userId"] = $user_id;
-                    (new Api())->validRequest();
+                    $api->validRequest();
 
                 }else{
-                    (new Api())->error(14, "Mot de passe incorrect.");
+                    $api->error(14, "Mot de passe incorrect.");
                 }
                 
 
             }else{
-                (new Api())->error(13, "Utilisateur introuvable.");
+                $api->error(13, "Utilisateur introuvable.");
             }
             
         }
@@ -71,13 +75,17 @@
         }
 
         public function require():void{
+            global $api;
+
             if(@is_nan($this->id) || is_null($this->id)){
-                (new Api())->error(16);
+                $api->error(16);
             }
         }
 
         public function checkPublicUploadAllowed():void{
-            if($this->type !== "admin") (new Api())->error(21, "Vous n'avez pas les droits nécéssaires pour modifier les fichiers publics");
+            global $api;
+
+            if($this->type !== "admin") $api->error(21, "Vous n'avez pas les droits nécéssaires pour modifier les fichiers publics");
         }
 
     }

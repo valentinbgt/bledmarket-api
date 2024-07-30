@@ -12,7 +12,7 @@
     require_once(PROJECT_ROOT . 'Conf/conf.inc.php');
 
     require_once(PROJECT_ROOT . 'Class/BledMarket/Database.php');
-    // $db = new Database();
+    $db = new Database();
 
     require_once(PROJECT_ROOT . 'Class/BledMarket/User.php');
     $user = new User();
