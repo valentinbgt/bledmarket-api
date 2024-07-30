@@ -7,14 +7,7 @@
 
     extract($api->getParameters());
 
-    $db = new Database();
-
-    $sql = "SELECT `user_id` FROM `files` WHERE `file_public_id`=:file_public_id";
-    $query = $db->prepare($sql);
-    $query->bindValue(':file_public_id', $fileId);
-    $query->execute();
-
-    $result = $query->fetch();
+    $result = $db->fetch('files', 'file_public_id', $fileId);
 
     $file = new File();
 

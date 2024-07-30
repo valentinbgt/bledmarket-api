@@ -68,11 +68,13 @@
             if($this->method != $method) $this->error(11);
         }
 
-        public function parameterCheck(string $parameter):void {
+        public function parameterCheck(string ...$args):void {
             $paramContainer = $GLOBALS["_$this->method"];
 
-            if(empty($paramContainer[$parameter])) {
-                $this->error(12, "'$parameter'");
+            foreach($args as $parameter){
+                if(empty($paramContainer[$parameter])) {
+                    $this->error(12, "'$parameter'");
+                }
             }
         }
 

@@ -3,8 +3,7 @@
 
     $api->requieredMethod(Api::POST);
 
-    $api->parameterCheck("repertory");
-    $api->parameterCheck("path");
+    $api->parameterCheck("repertory", "path");
 
     extract($api->getParameters());
 
