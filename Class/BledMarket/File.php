@@ -89,8 +89,7 @@
 
             if(empty(DB_FILES_PATH))(new Api())->error(3, "DB_FILES_PATH");
             //ENCRYPT THE FILE !!!
-            //if(move_uploaded_file($tmp_name, DB_FILES_PATH . '/' . $databaseId)){
-            if(move_uploaded_file($tmp_name, '../../files/' . $databaseId)){//DEV ONLY
+            if(move_uploaded_file($tmp_name, DB_FILES_PATH . '/' . $databaseId)){
                 $sql = "UPDATE `files` SET `file_is_uploaded`=1 WHERE `file_db_id`=$databaseId";
             }else{
                 // $error = error_get_last();
@@ -99,8 +98,7 @@
                 (new Api())->error(22, "Échec de déplacement du fichier");
             };
 
-            //if(file_exists(DB_FILES_PATH . '/' . $databaseId)){
-            if(file_exists('../../files/' . $databaseId)){//DEV ONLY
+            if(file_exists(DB_FILES_PATH . '/' . $databaseId)){
                 $sql = "UPDATE `files` SET `file_is_uploaded`=1 WHERE `file_db_id`=:file_db_id";
                 $query = $db->prepare($sql);
                 $query->bindValue(':file_db_id', $databaseId);
@@ -123,8 +121,7 @@
             $result = $query->fetch();
             $databaseId = $result["file_db_id"];
 
-            //$file_path = DB_FILES_PATH . '/' . $databaseId;
-            $file_path = '../../files/' . $databaseId;//DEV ONLY
+            $file_path = DB_FILES_PATH . '/' . $databaseId;
             if(file_exists($file_path)){
                 unlink($file_path);
             }
