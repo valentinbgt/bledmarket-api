@@ -193,4 +193,36 @@
 
             else return $publicKey;
         }
+
+        public function rename(string $fileId, string $newName):bool {
+            global $db;
+            $file = $db->fetch('files', 'file_public_id', $fileId);
+
+            $extention = '';
+            if(!$file['file_is_folder']){
+                $oldName = $file['file_name'];
+                $nameExploded = explode('.', $oldName);
+                $extention = '.' . $nameExploded[count($nameExploded) - 1];
+            }
+
+            $newName .= $extention;
+
+            //UPDATE FILE
+            $sql = "UPDATE `files` SET `file_name`=:newName WHERE `file_public_id`=:fileId";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':newName', $newName);
+            $query->bindValue(':fileId', $fileId);
+
+            $query->execute();
+
+            $updatedFile = $db->fetch('files', 'file_public_id', $fileId);
+
+            if($updatedFile['file_name'] == $newName) {
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
