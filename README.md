@@ -30,3 +30,5 @@
 - 26 : le dossier n'a pas pu être créé
 - 27 : le dossier n'est pas vide
 - 28 : fichier introuvable
+- 29 : destination introuvable
+- 29 : la destination n'est pas un dossier

@@ -143,7 +143,14 @@
         public function move(string $file_public_id, string $file_path){
             global $db;
 
-            var_dump($db);
+            $sql = "UPDATE `files` SET `file_path`=:file_path WHERE `file_public_id`=:file_public_id";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':file_path', $file_path);
+            $query->bindValue(':file_public_id', $file_public_id);
+
+            $query->execute();
         }
 
         public function newFolder($repertory, string $path):mixed {

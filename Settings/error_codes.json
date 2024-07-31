@@ -27,5 +27,7 @@
     "25": "Wrong destination",
     "26": "Error while creating new folder",
     "27": "Folder is not empty",
-    "28": "File not found"
+    "28": "File not found",
+    "29": "Target not found",
+    "30": "Target not a folder"
 }
