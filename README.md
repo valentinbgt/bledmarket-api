@@ -27,4 +27,5 @@
 - 23 : chemin introuvable
 - 24 : la destination n'est pas un dossier
 - 25 : la destination n'est pas dans le bon chemin
-- 25 : le dossier n'a pas pu être créé
+- 26 : le dossier n'a pas pu être créé
+- 27 : le dossier n'est pas vide

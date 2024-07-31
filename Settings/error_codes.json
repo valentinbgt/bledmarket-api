@@ -25,5 +25,6 @@
     "23": "Incorrect path",
     "24": "The destination is not a folder",
     "25": "Wrong destination",
-    "26": "Error while creating new folder"
+    "26": "Error while creating new folder",
+    "27": "Folder is not empty"
 }

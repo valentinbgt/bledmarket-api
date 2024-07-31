@@ -112,14 +112,26 @@
 
         public function delete(string $file_public_id){
             //delete permanently without trash
-            global $db;
+            global $db, $api;
 
             $result = $db->fetch('files', 'file_public_id', $file_public_id);
             $databaseId = $result["file_db_id"];
 
-            $file_path = DB_FILES_PATH . '/' . $databaseId;
-            if(file_exists($file_path)){
-                unlink($file_path);
+            if(!$result['file_is_folder']){
+                //la cible est un fichier -> la supprimer
+                $file_path = DB_FILES_PATH . '/' . $databaseId;
+                if(file_exists($file_path)){
+                    unlink($file_path);
+                }
+            }else{
+                //la cible est un dossier -> vérifier s'il est vide
+                $targetPath = $result['file_path'];
+                if(!str_ends_with($targetPath, '/')) $targetPath .= '/';
+                $targetPath .= $file_public_id;
+
+                $isFolderFilled = $db->fetch('files', 'file_path', $targetPath);
+
+                if($isFolderFilled !== false) $api->error(27, "Videz le dossier avant de le supprimer.");
             }
 
             $sql = "DELETE FROM `files` WHERE `file_public_id`=:file_public_id";
