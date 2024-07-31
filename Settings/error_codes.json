@@ -21,5 +21,9 @@
     "19": "File upload error",
     "20": "File unreachable",
     "21": "Permission denied",
-    "22": "Failed to move file into database"
+    "22": "Failed to move file into database",
+    "23": "Incorrect path",
+    "24": "The destination is not a folder",
+    "25": "Wrong destination",
+    "26": "Error while creating new folder"
 }

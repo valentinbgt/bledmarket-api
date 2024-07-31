@@ -133,4 +133,52 @@
 
             var_dump($db);
         }
+
+        public function newFolder($repertory, string $path):mixed {
+            global $db, $api, $user;
+            //CHECK IF PATH IS CORRECT
+
+            if($path != "/"){
+                $explode = explode('/', $path);
+                $parentName = array_pop($explode);
+                $parentPath = implode('/', $explode);
+                if(empty($parentPath)) $parentPath = '/'; 
+
+                $parent = $db->fetch('files', 'file_public_id', $parentName);
+
+                if(!is_array($parent)) $api->error(23, "Le dossier parent est introuvable.");
+
+                if($parent["file_is_folder"] != 1) $api->error(24, "Le chemin n'est pas un dossier.");
+
+                if($parent["file_path"] != $parentPath) $api->error(25, "La destination est incorrecte.");
+            }
+
+
+            //create folder
+
+            //generate rand public key
+            $allPubliKeys = $this->db->selectAllRowsOfColumn('files', 'file_public_id');
+            if(!$allPubliKeys) $allPubliKeys = array();
+            $publicKey = Functions::randKey(32, $allPubliKeys);
+
+            $sql = "INSERT INTO `files`(`file_public_id`, `file_repertory`, `file_name`, `file_path`, `file_size`, `file_date`, `file_is_folder`, `user_id`) VALUES (:file_public_id, :file_repertory, :file_name, :file_path, :file_size, :file_date, :file_is_folder, :user_id)";
+
+            $query = $db->prepare($sql);
+            
+            $query->bindValue(':file_public_id', $publicKey);
+            $query->bindValue(':file_repertory', $repertory);
+            $query->bindValue(':file_name', "Nouveau dossier");
+            $query->bindValue(':file_path', $path);
+            $query->bindValue(':file_size', 0);
+            $query->bindValue(':file_date', time());
+            $query->bindValue(':file_is_folder', 1);
+            $query->bindValue(':user_id', $user->id);
+
+            $query->execute();
+
+            $newFolder = $db->fetch('files', 'file_public_id', $publicKey);
+            if(!is_array($newFolder)) return false;
+
+            else return $publicKey;
+        }
     }

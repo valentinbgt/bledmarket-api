@@ -24,3 +24,7 @@
 - 20 : fichier introuvable dans les fichiers temporaires du serveur
 - 21 : droits inssuffisants
 - 22 : erreur de la fonction ou équivalente move_uploaded_file();
+- 23 : chemin introuvable
+- 24 : la destination n'est pas un dossier
+- 25 : la destination n'est pas dans le bon chemin
+- 25 : le dossier n'a pas pu être créé
