@@ -6,17 +6,17 @@
     extract($api->getParameters());
 
     
-    //check if name respect a-zA-Z0-9
+    //check if name respect [a-zA-Z0-9\.\-_
     $name_valid = preg_match("/^[a-zA-Z0-9\.\-_]*$/", $name);
     if(!$name_valid) $api->error(32, "Utilisez un nom d'utilisateur valide (lettres, chiffres, ., - et _)");
     
-    //check if name !> 42 long
+    //check if display name !> 42 long
     $displayName = preg_replace("~(?:[\p{M}]{1})([\p{M}])+?~uis", "", $displayName);
 
     $display_name_valid = !(strlen($displayName) > 42);
     if(!$display_name_valid) $api->error(33, "max = 42");
 
-    //check if mail is valid
+    //check if email is valid
     $mail_valid = filter_var($email, FILTER_VALIDATE_EMAIL);
     if(!$mail_valid) $api->error(31);
 
