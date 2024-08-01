@@ -35,5 +35,6 @@
     "33": "User display name too long",
     "34": "Password too weak",
     "35": "User name already taken",
-    "36": "Email already taken"
+    "36": "Email already taken",
+    "37": "Passwords don't match"
 }

@@ -38,3 +38,4 @@
 - 34 : mot de passe trop faible
 - 35 : le nom d'utilisateur existe déjà
 - 36 : l'email existe déjà
+- 37 : les mots de passe ne correspondent pas

@@ -87,6 +87,28 @@
             return password_verify("$password+$salt", $hash);
         }
 
+        public function updatePassword(string $hash):bool {
+            global $db;
+
+            $this->require();
+
+            $sql = "UPDATE `users` SET `user_pwd`=:pwd WHERE `user_id`=:userId";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue(':userId', $this->id);
+            $query->bindValue(':pwd', $hash);
+
+            $query->execute();
+
+            $pwd_check = $db->fetch('users', 'user_id', $this->id);
+            if($pwd_check['user_pwd'] === $hash){
+                return true;
+            }else{
+                return false;
+            };
+        }
+
         public function login(string $login, string $password):void {
             global $api;
 
