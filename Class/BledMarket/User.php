@@ -39,6 +39,28 @@
             $this->about = $user_about;
         }
 
+        public function signup(){
+            
+        }
+
+        public function passwordHash(string $password):string {
+            global $functions;
+            $salt = Functions::randKey(16);
+
+            $hash = password_hash("$password+$salt", PASSWORD_ARGON2I);
+
+            return "$salt:$hash";
+        }
+
+        public function passwordVerify(string $password, string $salthash):bool {
+            $exploded = explode(':', $salthash);
+
+            $salt = $exploded[0];
+            $hash = $exploded[1];
+
+            return password_verify("$password+$salt", $hash);
+        }
+
         public function login(string $login, string $password):void {
             global $api;
 
