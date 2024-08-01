@@ -29,5 +29,11 @@
     "27": "Folder is not empty",
     "28": "File not found",
     "29": "Target not found",
-    "30": "Target not a folder"
+    "30": "Target not a folder",
+    "31": "Invalid email",
+    "32": "Invalid user name",
+    "33": "User display name too long",
+    "34": "Password too weak",
+    "35": "User name already exists",
+    "36": "Email already exists"
 }

@@ -31,4 +31,10 @@
 - 27 : le dossier n'est pas vide
 - 28 : fichier introuvable
 - 29 : destination introuvable
-- 29 : la destination n'est pas un dossier
+- 30 : la destination n'est pas un dossier
+- 31 : adresse email invalide
+- 32 : nom d'utilisateur invalide
+- 33 : nom d'affichage trop long
+- 34 : mot de passe trop faible
+- 35 : le nom d'utilisateur existe déjà
+- 36 : l'email existe déjà

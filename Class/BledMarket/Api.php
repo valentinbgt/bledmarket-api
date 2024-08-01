@@ -51,8 +51,9 @@
             $this->response = array();
         }
 
-        public function validRequest():void {
-            $this->error(1);
+        public function validRequest(bool $valid = true):void {
+            if($valid) $this->error(1);
+            else $this->error();
         }
 
         public function debug():void {

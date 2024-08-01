@@ -39,7 +39,33 @@
             $this->about = $user_about;
         }
 
-        public function signup(){
+        public function signup(string $name, string $displayName, string $email, string $password):bool {
+            global $db;
+
+            $password_hash = $this->passwordHash($password);
+
+            $sql = "INSERT INTO `users`(`user_type`, `user_name`, `user_display_name`, `user_email`, `user_pwd`) VALUES (:user_type, :user_name, :user_display_name, :user_email, :user_pwd)";
+
+            $query = $db->prepare($sql);
+
+            $query->bindValue('user_type', "default");
+            $query->bindValue('user_name', $name);
+            $query->bindValue('user_display_name', $displayName);
+            $query->bindValue('user_email', $email);
+            $query->bindValue('user_pwd', $password_hash);
+
+            $query->execute();
+
+            $newUser = $db->fetch('users', 'user_name', $name);
+            if($newUser){
+                //connect user
+                $this->login($name, $password);
+
+                return true;
+            }else{
+                return false;
+            }
+
             
         }
 
@@ -76,7 +102,7 @@
                 $userInfos = $res[0];
                 extract($userInfos);
 
-                if(password_verify($password, $user_pwd)){
+                if($this->passwordVerify($password, $user_pwd)){
 
                     $_SESSION["userId"] = $user_id;
                     $api->validRequest();
