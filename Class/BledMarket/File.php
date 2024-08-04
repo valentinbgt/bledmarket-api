@@ -109,6 +109,61 @@
             }
         }
 
+        public function encrypt(string $inputFilePath, string $outputFilePath, string $key) {
+            $ivLength = openssl_cipher_iv_length('aes-256-cbc');
+            $iv = random_bytes($ivLength);
+
+            $fpIn = fopen($inputFilePath, 'rb');
+            $fpOut = fopen($outputFilePath, 'wb');
+            fwrite($fpOut, $iv);
+
+            $blockSize = 4 * 1024; // 4KB
+
+            while (!feof($fpIn)) {
+                $plaintext = fread($fpIn, $blockSize);
+                $ciphertext = openssl_encrypt($plaintext, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+
+                if ($ciphertext) {
+                    $iv = substr($ciphertext, - $ivLength); // Mise à jour de l'IV avec le dernier bloc chiffré
+                    fwrite($fpOut, $ciphertext);
+                }
+            }
+
+            fclose($fpIn);
+            fclose($fpOut);
+        }
+
+        public function download(string $filePath, string $key):void {
+            @ob_end_clean();
+            $options = array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
+            $context  = stream_context_create($options);
+            $fileIn = fopen($filePath, 'rb', false, $context);
+            
+            $ivLength = openssl_cipher_iv_length('aes-256-cbc');
+            $iv = fread($fileIn, $ivLength);
+        
+            $blockSize = 4 * 1024;//4KB
+            $buffer = '';
+        
+            ob_start();
+            while (!feof($fileIn)) {
+                $ciphertext = fread($fileIn, $blockSize + $ivLength);
+                $buffer = openssl_decrypt($ciphertext, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+                echo $buffer;
+                ob_flush();
+                flush();
+                $iv = substr($ciphertext, -$ivLength);
+            }
+        
+            fclose($fileIn);
+            exit;
+        }
+
 
         public function delete(string $file_public_id){
             //delete permanently without trash
