@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS files ;
 CREATE TABLE files (file_id INT AUTO_INCREMENT NOT NULL,
 file_public_id TEXT,
 file_db_id TEXT,
-file_cypher_key TEXT,
+file_encrypt_key TEXT,
 file_token TEXT,
 file_is_uploaded BOOLEAN,
 file_repertory TEXT,

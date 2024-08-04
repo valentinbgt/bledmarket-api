@@ -47,7 +47,7 @@
             if(!$allDatabaseIds) $allDatabaseIds = array();
             $databaseId = Functions::randKey(32, $allDatabaseIds);
 
-            $cypherKey = Functions::randKey(64);
+            $encryptKey = Functions::randKey(64);
 
 
 
@@ -67,14 +67,14 @@
             // echo "userid: $user->id<br>\n";
             // echo "file_hash: $file_hash<br>\n";
 
-            $sql = "INSERT INTO `files`(`file_public_id`, `file_db_id`, `file_cypher_key`, `file_repertory`, `file_name`, `file_path`, `file_size`, `file_date`, `file_is_folder`, `file_type`, `file_hash`, `user_id`) VALUES (:file_public_id, :file_db_id, :file_cypher_key, :file_repertory, :file_name, :file_path, :file_size, :file_date, :file_is_folder, :file_type, :file_hash, :user_id)";
+            $sql = "INSERT INTO `files`(`file_public_id`, `file_db_id`, `file_encrypt_key`, `file_repertory`, `file_name`, `file_path`, `file_size`, `file_date`, `file_is_folder`, `file_type`, `file_hash`, `user_id`) VALUES (:file_public_id, :file_db_id, :file_encrypt_key, :file_repertory, :file_name, :file_path, :file_size, :file_date, :file_is_folder, :file_type, :file_hash, :user_id)";
 
             $db = new Database;
             $query = $db->prepare($sql);
             
             $query->bindValue(':file_public_id', $publicKey);
             $query->bindValue(':file_db_id', $databaseId);
-            $query->bindValue(':file_cypher_key', $cypherKey);
+            $query->bindValue(':file_encrypt_key', $encryptKey);
             $query->bindValue(':file_repertory', $repertory);
             $query->bindValue(':file_name', $file_name);
             $query->bindValue(':file_path', $path);
@@ -88,15 +88,8 @@
             $query->execute();
 
             if(empty(DB_FILES_PATH))(new Api())->error(3, "DB_FILES_PATH");
-            //ENCRYPT THE FILE !!!
-            if(move_uploaded_file($tmp_name, DB_FILES_PATH . '/' . $databaseId)){
-                $sql = "UPDATE `files` SET `file_is_uploaded`=1 WHERE `file_db_id`=$databaseId";
-            }else{
-                // $error = error_get_last();
-                // print_r($error);
-                // die();
-                (new Api())->error(22, "Échec de déplacement du fichier");
-            };
+            
+            $this->encrypt($tmp_name, DB_FILES_PATH . '/' . $databaseId, $encryptKey);
 
             if(file_exists(DB_FILES_PATH . '/' . $databaseId)){
                 $sql = "UPDATE `files` SET `file_is_uploaded`=1 WHERE `file_db_id`=:file_db_id";
@@ -133,7 +126,36 @@
             fclose($fpOut);
         }
 
-        public function download(string $filePath, string $key):void {
+        public function download(string $fileId, bool $display = false):void {
+            global $db, $api;
+            function cleanFileName($string) { return preg_replace('/[^A-Za-z0-9. éèà&\-]/', '', $string);};
+
+            $fileInfos = $db->fetch('files', 'file_public_id', $fileId);
+
+            if(!$fileInfos) $api->error(28);
+
+            $databaseId = $fileInfos['file_db_id'];
+            $fileName = $fileInfos['file_name'];
+            $key = $fileInfos['file_encrypt_key'];
+            $fileSize = $fileInfos['file_size'];
+            $fileType = $fileInfos['file_type'];
+
+            $filePath = DB_FILES_PATH . '/' . $databaseId;
+
+            ini_set('max_execution_time', '0');
+            session_write_close();
+            $attachment = (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE")) ? "" : " attachment"; 
+        
+            if($display && Functions::isMIMEDisplayable($fileType)){
+                header("Content-Type: $fileType");
+                header("Content-Disposition: inline; filename=" . cleanFileName($fileName) . ";");
+            }else {
+                header("Content-Type: application/octet-stream");
+                header("Content-Disposition: $attachment; filename=".cleanFileName($fileName).";");
+            }
+            header('Content-Length: ' . $fileSize);
+            header('Content-Transfer-Encoding: binary');
+
             @ob_end_clean();
             $options = array(
                 "ssl"=>array(

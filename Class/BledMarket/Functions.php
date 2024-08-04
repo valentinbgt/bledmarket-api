@@ -19,4 +19,39 @@
             
             return $randomString;
         }
+
+        public static function isMIMEDisplayable(string $mime):bool{
+            $availableMimes = array(
+                "text/plain",
+                "text/html",
+                "text/css",
+                "text/javascript",
+                "application/javascript",
+                "application/x-javascript",
+                
+                "image/gif",
+                "image/jpeg",
+                "image/png",
+                "image/svg+xml",
+                "image/webp",
+                "image/avif",
+                
+                "video/mp4",
+                "video/webm",
+                "video/ogg",
+
+                "audio/mpeg",
+                "audio/ogg",
+                "audio/wav",
+                "audio/webm",
+
+                "application/pdf",
+                "application/json",
+                "application/xml",
+
+                "application/xhtml+xml"
+            );
+
+            return in_array($mime, $availableMimes);
+        }
     }
